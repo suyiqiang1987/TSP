@@ -41,11 +41,11 @@ int main()
 			//cout << "...Cheapest Insertion Tour" << ci_t.printTour();
 
 			Tour two_t = Tour(nn_t);
-			TwoOpt(two_t, g);
+			ImprovementHeuristics::TwoOpt(two_t, g);
 			cout << "...Two Opt Tour" << two_t.printTour();
 
 			Tour three_t = Tour(nn_t);
-			ThreeOpt(three_t, g);
+			ImprovementHeuristics::ThreeOpt(three_t, g);
 			cout << "...Three Opt Tour" << three_t.printTour();
 
 			//Tour en_t = Enumeration(0, g);
