@@ -16,7 +16,7 @@ Tour ConstructiveHeuristics::NNGreedyHeuristic(int startingIndex, Graph& g) {
 		//cout << t.printTour();
 		int prev_node = t.getSeq(i - 1);
 		//cout << "Prev Node" << prev_node << endl;
-		double leastEdgeVal = INF;
+		double leastEdgeVal = Constants::INF;
 		double leastEdgeIndex = -1;
 		for (int j = 0; j < V;j++) {
 			if (t.getHasBeenSeen(j))
@@ -93,7 +93,7 @@ Tour ConstructiveHeuristics::CheapestInseration(int startingIndex, Graph& g) {
 	Tour t(V);
 	t.addNode(startingIndex, 0, g);
 	for (int iter = 0; iter < V - 1;iter++) {
-		double cheapestInsertionVal = INF;
+		double cheapestInsertionVal = Constants::INF;
 		double cheapestInsertionK = -1;
 		double cheapestInserationLocation = -1;
 		for (int k = 0; k < V;k++) {

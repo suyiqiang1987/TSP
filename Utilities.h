@@ -3,6 +3,6 @@
 #define UTILITIES_H
 #include"Graph.h"
 #include<vector>
-void generateShortestPathInstance(const int NumberOfNode, const int NumberOfInstances);
-void readShortestPathInstance(const int NumberOfNode, const int instanceIndex, Graph& g);
+void generateTSPInstance(const int NumberOfNode, const int NumberOfInstances);
+void readTSPInstance(const int NumberOfNode, const int instanceIndex, Graph& g);
 #endif

@@ -24,22 +24,26 @@ void ImprovementHeuristics::TwoOpt(Tour& t, Graph& g) {
 	double improve = 1;
 	while (iter < 20 && improve > 0.01) {
 		improve = 0;
-		Tour bestTour(V);
-		bestTour.Copy(t);
+		double bestTourLength = t.gettotalDistance();
 		double initial_dist = t.gettotalDistance();
+		int bestI = 0;
+		int bestJ = 0;
+		Tour newTour(t);
 		for (int i = 1; i < V - 1; i++) {
 			for (int j = i + 1; j < V; j++) {
-				Tour newTour(t);
 				newTour.TwoOptSwap(i, j, g);
-				if (bestTour.gettotalDistance() > newTour.gettotalDistance()) {
+				if (bestTourLength > newTour.gettotalDistance()) {
 					improve = t.gettotalDistance() - newTour.gettotalDistance();
-					bestTour.Copy(newTour);
+					bestTourLength = newTour.gettotalDistance();
+					bestI = i;
+					bestJ = j;
 					//cout << "Swat " << i << " and " << j << " :" << t.printTour();
 				}
+				newTour.TwoOptSwap(i, j, g);
 			}
 		}
 		if (improve > 0)
-			t.Copy(bestTour);
+			t.TwoOptSwap(bestI, bestJ,g);
 		iter += 1;
 		improve /= initial_dist;
 	}
@@ -51,11 +55,11 @@ void ImprovementHeuristics::TwoOpt(Tour& t, Graph& g) {
 
 
 void ImprovementHeuristics::ThreeOpt(Tour& t, Graph& g) {
-	clock_t begin;
-	clock_t end;
-	double timeSec;
-	cout << "Start 3-Opt..." << endl;
-	begin = clock();
+	//clock_t begin;
+	//clock_t end;
+	//double timeSec;
+	//cout << "Start 3-Opt..." << endl;
+	//begin = clock();
 
 	int V = g.numberOfNodes();
 	//If there are only two nodes (e.g., origin plus another node), it is no need to use TwoOpt
@@ -95,7 +99,7 @@ void ImprovementHeuristics::ThreeOpt(Tour& t, Graph& g) {
 		improve /= initial_dist;
 	}
 
-	end = clock();
-	timeSec = (end - begin) / static_cast<double>(CLOCKS_PER_SEC);
-	cout << "...Finish 3-Opt in " << timeSec << "s." << endl;
+	//end = clock();
+	//timeSec = (end - begin) / static_cast<double>(CLOCKS_PER_SEC);
+	//cout << "...Finish 3-Opt in " << timeSec << "s." << endl;
 }

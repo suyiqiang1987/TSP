@@ -45,6 +45,15 @@
     <ClInclude Include="ACS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LatLong.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GENIUS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GENIUS_GPU.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -71,5 +80,20 @@
     <ClCompile Include="ImprovementHeuristics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GENIUS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LatLong.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GENIUS_GPU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

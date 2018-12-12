@@ -12,7 +12,7 @@ using namespace std;
 
 string latlongfile = "LatLongFile.csv";
 
-void generateShortestPathInstance(const int NumberOfNode, const int NumberOfInstances) {
+void generateTSPInstance(const int NumberOfNode, const int NumberOfInstances) {
 	clock_t begin;
 	clock_t end;
 	double timeSec;
@@ -38,7 +38,7 @@ void generateShortestPathInstance(const int NumberOfNode, const int NumberOfInst
 	}
 }
 
-void readShortestPathInstance(const int NumberOfNode, const int instanceIndex, Graph& g) {
+void readTSPInstance(const int NumberOfNode, const int instanceIndex, Graph& g) {
 	clock_t begin;
 	clock_t end;
 	double timeSec;

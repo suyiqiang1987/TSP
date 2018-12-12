@@ -12,9 +12,11 @@ private:
 	int lastIndex; //This value is used to store information of constructive heuristic, which the number of nodes that have been added to the tour
 	double totalDistance; //The total distance of tour of nodes already added to the tour
 public:
+	Tour();
 	Tour(int rV);
-	Tour(Tour& t);
-	void Copy(Tour& t);
+	Tour(const Tour& t);
+	void Copy(const Tour& t);
+	int *getWholeSeq() { return seq;}
 	int getSeq(int index) { return seq[index];}
 	bool getHasBeenSeen(int index) {return seenList[index];}
 	double gettotalDistance() { return totalDistance; }
@@ -24,6 +26,7 @@ public:
 	bool canAdd(int i, int location);
 	void TwoOptSwap(int i, int j, Graph& g);
 	void ThreeOptSwap(int i, int j, int k,Graph& g);
+	void rvereseArray(int arr[], int start, int end);
 	string printTour();
 	~Tour() {
 		delete[] seq;

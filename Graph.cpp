@@ -50,7 +50,7 @@ Graph::Graph(int rV, string fileName, int seed) :V(rV){
 		LatLong l1 = latlongs[i];
 		for (int j = i; j < V;j++) {
 			LatLong l2 = latlongs[j];
-			double dist = haversine(l1, l2);
+			double dist = Constants::haversine(l1, l2);
 			this->edges[i][j] = dist;
 			if (i != j)
 				this->edges[j][i] = dist;
@@ -61,12 +61,12 @@ Graph::Graph(int rV, string fileName, int seed) :V(rV){
 	file.close();
 }
 
-Graph::Graph(Graph&g):V(g.V){
+Graph::Graph(const Graph&g):V(g.V){
 	edges = new double*[V];
 	for (int i = 0; i < V;i++) {
 		edges[i] = new double[V];
 		for (int j = 0; j < V;j++)
-			edges[i][j] = g.getEdge(i, j);
+			edges[i][j] = g.edges[i][j];
 	}
 }
 Graph::Graph(int rV):V(rV) {

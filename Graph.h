@@ -11,20 +11,20 @@ private:
 	const int V;
 public:
 	Graph(int rV, string fileName, int seed);
-	Graph(Graph& g);
-	Graph(int rV);
+	Graph(const Graph& g);
+	Graph(int rV = 100);
 	int numberOfNodes() { return this->V;}
 	void readGraphFromFile(string fileName);
 	void writeGraphFile(string fileName);
+	double getEdge(int i, int j) {
+		if (i >= V || j >= V)
+			return Constants::INF;
+		return edges[i][j];
+	}
 	~Graph() {
 		for (int i = 0; i < V;++i)
 			delete[] edges[i];
 		delete[] edges;
-	}
-	double getEdge(int i, int j) {
-		if (i >= V || j >= V)
-			return INF;
-		return edges[i][j];
 	}
 };
 #endif

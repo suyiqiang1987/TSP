@@ -101,6 +101,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\y0s00k3\Documents\Visual Studio 2015\Projects\TSP\TSP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,8 +149,11 @@
     <ClInclude Include="ACS.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="ConstructiveHeuristics.h" />
+    <ClInclude Include="GENIUS.h" />
+    <ClInclude Include="GENIUS_GPU.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="ImprovementHeuristics.h" />
+    <ClInclude Include="LatLong.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Tour.h" />
@@ -157,9 +161,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ACS.cpp" />
+    <ClCompile Include="Constants.cpp" />
     <ClCompile Include="ConstructiveHeuristics.cpp" />
+    <ClCompile Include="GENIUS.cpp" />
+    <ClCompile Include="GENIUS_GPU.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="ImprovementHeuristics.cpp" />
+    <ClCompile Include="LatLong.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -169,6 +177,9 @@
     <ClCompile Include="Tour.cpp" />
     <ClCompile Include="TSP.cpp" />
     <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

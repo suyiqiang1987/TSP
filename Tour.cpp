@@ -1,9 +1,20 @@
 #include "stdafx.h"
 #include"Tour.h"
 #include "Constants.h"
-#include<sstream>;
 #include<iostream>
+#include<string>
+#include<math.h>
 using namespace std;
+
+Tour::Tour() :V(100) {
+	seq = new int[this->V];
+	weight = new double[this->V];
+	seenList = new bool[this->V];
+	for (int i = 0; i < V;++i)
+		seenList[i] = false;
+	lastIndex = -1;
+	totalDistance = 0;
+}
 
 Tour::Tour(int rV) :V(rV) {
 	seq = new int[this->V];
@@ -14,7 +25,7 @@ Tour::Tour(int rV) :V(rV) {
 	lastIndex = -1;
 	totalDistance = 0;
 }
-Tour::Tour(Tour&t) : V(t.V) {
+Tour::Tour(const Tour& t) : V(t.V) {
 	seq = new int[this->V];
 	weight = new double[this->V];
 	seenList = new bool[this->V];
@@ -27,7 +38,7 @@ Tour::Tour(Tour&t) : V(t.V) {
 	}
 }
 
-void Tour::Copy(Tour& t) {
+void Tour::Copy(const Tour& t) {
 	lastIndex = t.lastIndex;
 	totalDistance = t.totalDistance;
 	for (int i = 0; i < V; i++) {
@@ -43,7 +54,7 @@ double Tour::calculateAddNodeAt(int i, int location, Graph& g)
 	double val = this->totalDistance;
 
 	if (canAddFlag == false)
-		return INF;
+		return Constants::INF;
 	if (location == 0) {
 		weight[0] = 0;
 	}
@@ -133,13 +144,15 @@ void Tour::TwoOptSwap(int i, int j, Graph& g) {
 	if (j >= V)
 		return;
 
-	int lengthOfReversalList = j - i;
+	/*int lengthOfReversalList = j - i;
 	int* reveralList = new int[lengthOfReversalList+1];
 	for (int k = j; k>= i;k--) 
 		reveralList[j-k] = seq[k];
 
 	for (int k = i; k <= j;k++) 
-		seq[k] = reveralList[k - i];
+		seq[k] = reveralList[k - i];*/
+
+	rvereseArray(seq, i, j);
 	
 	for (int k = i - 1; k <= j;k++) {
 		totalDistance -= weight[k];
@@ -147,7 +160,7 @@ void Tour::TwoOptSwap(int i, int j, Graph& g) {
 		totalDistance += weight[k];
 	}
 
-	delete reveralList;
+	//delete [] reveralList;
 
 }
 
@@ -168,21 +181,21 @@ void Tour::ThreeOptSwap(int i, int j, int k, Graph& g) {
 		for (int seq_index = 0; seq_index <= i - 1;seq_index++) 
 			temp.addNode(seq[seq_index], counter++, g);
 		
-		if (temp_arr[threeOptPermutation[per_index][0]] < temp_arr[threeOptPermutation[per_index][1]]) {
-			for (int seq_index = temp_arr[threeOptPermutation[per_index][0]];seq_index <= temp_arr[threeOptPermutation[per_index][1]];seq_index++)
+		if (temp_arr[Constants::threeOptPermutation[per_index][0]] < temp_arr[Constants::threeOptPermutation[per_index][1]]) {
+			for (int seq_index = temp_arr[Constants::threeOptPermutation[per_index][0]];seq_index <= temp_arr[Constants::threeOptPermutation[per_index][1]];seq_index++)
 				temp.addNode(seq[seq_index], counter++, g);
 		}
 		else {
-			for (int seq_index = temp_arr[threeOptPermutation[per_index][0]];seq_index >= temp_arr[threeOptPermutation[per_index][1]];seq_index--)
+			for (int seq_index = temp_arr[Constants::threeOptPermutation[per_index][0]];seq_index >= temp_arr[Constants::threeOptPermutation[per_index][1]];seq_index--)
 				temp.addNode(seq[seq_index], counter++, g);
 		}
 
-		if (temp_arr[threeOptPermutation[per_index][2]] < temp_arr[threeOptPermutation[per_index][3]]) {
-			for (int seq_index = temp_arr[threeOptPermutation[per_index][2]];seq_index <= temp_arr[threeOptPermutation[per_index][3]];seq_index++)
+		if (temp_arr[Constants::threeOptPermutation[per_index][2]] < temp_arr[Constants::threeOptPermutation[per_index][3]]) {
+			for (int seq_index = temp_arr[Constants::threeOptPermutation[per_index][2]];seq_index <= temp_arr[Constants::threeOptPermutation[per_index][3]];seq_index++)
 				temp.addNode(seq[seq_index], counter++, g);
 		}
 		else {
-			for (int seq_index = temp_arr[threeOptPermutation[per_index][2]];seq_index >= temp_arr[threeOptPermutation[per_index][3]];seq_index--)
+			for (int seq_index = temp_arr[Constants::threeOptPermutation[per_index][2]];seq_index >= temp_arr[Constants::threeOptPermutation[per_index][3]];seq_index--)
 				temp.addNode(seq[seq_index], counter++, g);
 		}
 
@@ -196,19 +209,46 @@ void Tour::ThreeOptSwap(int i, int j, int k, Graph& g) {
 	if (this->totalDistance > bestTour.gettotalDistance())
 		this->Copy(bestTour);
 }
+
 string Tour::printTour() {
 	if (lastIndex < 0)
 		return "Empty Tour\n";
 
-	stringstream ss;
-	if (lastIndex < V - 1)
-		ss << "Incompleted Tour:";
-	else
-		ss << "Completed Tour:";
-	for (int i = 0; i <= lastIndex;i++) {
-		ss << seq[i] << "-" << weight[i] << "-";
-	}
-	ss << seq[0] << "; Total Dist = " << totalDistance << endl;
+	string s = "";
 
-	return ss.str();
+	//cout << s << endl;
+	if (lastIndex < V - 1)
+		s.append("Incompleted Tour:");
+	else
+		s.append("Completed Tour:");
+
+	//cout << s << endl;
+	for (int i = 0; i <= lastIndex;i++) {
+		s.append("node ");
+		s.append(to_string(seq[i]));
+		s.append("-");
+		s.append(to_string(int(weight[i])));
+		s.append("-");
+		//cout << s << endl;
+	}
+	s.append("node");
+	s.append(to_string(seq[0]));
+	s.append("; Total Dist = ");
+	s.append(to_string(int(totalDistance)));
+	s.append("\n");
+
+	return s;
+}
+
+
+void Tour::rvereseArray(int arr[], int start, int end)
+{
+	while (start < end)
+	{
+		int temp = arr[start];
+		arr[start] = arr[end];
+		arr[end] = temp;
+		start++;
+		end--;
+	}
 }
